@@ -23,8 +23,10 @@ then
   # repo is cloned with --quiet to obscure the credentials
   cd /tmp
   git clone $GIT_HTTPS_URL_WITH_AUTH --branch $SNEAQL_GIT_REPO_BRANCH --single-branch --quiet ./repo 
-  cd ./repo
+  
 fi
+
+cd /tmp/repo
 
 # execute the transform in the current working directory
 sneaql exec .
