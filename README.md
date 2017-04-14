@@ -42,7 +42,7 @@ SneaQL biscuit integration works as follows:
 1. Install biscuit and initialize your KMS environment as per the instructions on the biscuit github site.
 2. Create your secrets.yml file, storing the secrets with names that match the environment variables that SneaQL is looking for.  For example ```$ biscuit put -f secrets.yml SNEAQL_DB_PASSWORD PaZZwurd```
 3. Place your secrets.yml file in a http data store accessible by your instances.  Note that you can use an S3 bucket configured as a public website for this, as the secrets.yml file is meaningless without access to the KMS keys.
-4. When running your container... do not pass ENV vars for your secrets, instead pass the http path of your secrets file as ```SNEAQL_BISCUIT=http://http://secrets-files.example.com.s3-website-us-west-2.amazonaws.com/secrets.yml```
+4. When running your container... do not pass ENV vars for your secrets, instead pass the http path of your secrets file as ```SNEAQL_BISCUIT=http://secrets-files.example.com.s3-website-us-west-2.amazonaws.com/secrets.yml```
 
 If the SNEAQL_BISCUIT variable is set, the secrets.yml file will be pulled into the container at startup, at which point *all* of the secrets in the file will be decrypted and sourced as environment variables.
 

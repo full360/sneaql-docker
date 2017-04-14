@@ -7,7 +7,6 @@
 if [ -n "$SNEAQL_BISCUIT" ] 
 then 
   echo "pulling secrets file $SNEAQL_BISCUIT"
-  cd /tmp
   # pull it down
   wget -O secrets.yml $SNEAQL_BISCUIT
   # create a source compatible shell script
@@ -38,11 +37,25 @@ then
   GIT_HTTPS_URL_WITH_AUTH=`ruby /usr/sbin/git_clone_url.rb $SNEAQL_GIT_REPO $SNEAQL_GIT_USER $SNEAQL_GIT_PASSWORD`
   
   # repo is cloned with --quiet to obscure the credentials
-  cd /tmp
-  git clone $GIT_HTTPS_URL_WITH_AUTH --branch $SNEAQL_GIT_REPO_BRANCH --single-branch --quiet ./repo 
+  cd /
+  git clone $GIT_HTTPS_URL_WITH_AUTH --branch $SNEAQL_GIT_REPO_BRANCH --single-branch --quiet /repo 
 fi
 
-cd /tmp/repo
+# /repo is the preferred location for your sneaql code
+# and is where the git based repos will be placed
+# if this folder exists switch to it now
+if [ -n "/repo" ]
+then
+  cd /repo
+fi
 
-# execute the transform in the current working directory
-sneaql exec .
+# checks to see if parameters were passed to the container
+if [ -n "$*" ]
+then
+  # if parameters were passed, forward them to sneaql
+  sneaql "$@"
+else
+  # otherwise execute the transform in the current dir
+  # (most likely /repo)
+  sneaql exec .
+fi
