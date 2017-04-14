@@ -18,10 +18,6 @@ RUN gem install sneaql
 RUN mkdir /jars
 ADD java/RedshiftJDBC4-1.1.6.1006.jar /jars/RedshiftJDBC4-1.1.6.1006.jar
 
-# ruby deps
-ADD ruby/git_clone_url.rb /usr/sbin/git_clone_url.rb
-ADD ruby/source_biscuit.rb /usr/sbin/source_biscuit.rb
-
 # biscuit binary is used, not built from source
 ADD biscuit/biscuit /usr/sbin/biscuit
 RUN chmod 755 /usr/sbin/biscuit
