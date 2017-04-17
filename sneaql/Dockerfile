@@ -1,5 +1,11 @@
 FROM jruby:9.1-jre-alpine
 
+ARG SNEAQL_GEM_VERSION
+
+LABEL build.publish.majorversion="9.1-jre-alpine"
+LABEL build.publish.minorversion="0.0.2"
+LABEL sneaql.gem.version=${SNEAQL_GEM_VERSION}
+
 MAINTAINER Jeremy Winters jeremy.winters@full360.com
 
 RUN apk add --no-cache \
@@ -12,7 +18,7 @@ RUN mv /etc/localtime /etc/localtime.bak ; ln -s /usr/share/zoneinfo/UTC /etc/lo
 
 USER root
 
-RUN gem install sneaql
+RUN gem install sneaql -v ${SNEAQL_GEM_VERSION}
 
 # java deps
 RUN mkdir /jars
