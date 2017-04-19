@@ -26,11 +26,9 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-ifndef BUILDARGS
-BUILDARGS:="SNEAQL_GEM_VERSION=0.0.13"
-endif
-
 # Get the Full 360 Opinionated Docker Makefile
 DOCKERMK := $(shell if [ ! -e docker-ci.mk ]; then \
                     wget -N -q https://raw.githubusercontent.com/full360/docker-ci/master/docker-ci.mk; fi)
 include docker-ci.mk
+
+$(foreach D, $(DOCKERFILES), $(eval $(call imagebase_from_dockerfile,$D).BUILDARGS+="SNEAQL_GEM_VERSION=$$(call get_label,$D,minorversion)"))
