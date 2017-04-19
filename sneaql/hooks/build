@@ -1,4 +1,4 @@
 #!/bin/sh
 docker build \
---build-arg SNEAQL_GEM_VERSION=$SNEAQL_GEM_VERSION \     
+--build-arg SNEAQL_GEM_VERSION=$SNEAQL_GEM_VERSION \
 -t $IMAGE_NAME .

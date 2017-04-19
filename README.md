@@ -1,10 +1,8 @@
 #### SneaQL Docker
 
-This repo contains the objects used to create the standard SneaQL docker image.
+This repo contains the objects used to create the standard SneaQL docker image. Unless you want to build your own docker image, you should go to the [wiki](https://github.com/full360/sneaql/wiki) for instructions on installation and usage.
 
 Please note that you do not need to build your own image unless you want to customize it. You can simply use the `full360/sneaql:latest` image which is publicly available on Dockerhub.
-
-For more information on SneaQL please visit [https://github.com/full360/sneaql](https://github.com/full360/sneaql).
 
 ##### Usage
 
@@ -35,20 +33,7 @@ SNEAQL_DATABASE=redshift
 
 ##### Secure Secrets Management with Biscuit
 
-When using the SneaQL container in AWS, you will want to use some mechanism to protect your secrets. We have integrated biscuit [https://github.com/dcoker/biscuit](https://github.com/dcoker/biscuit) as an option for secrets management.
-
-SneaQL biscuit integration works as follows:
-
-1. Install biscuit and initialize your KMS environment as per the instructions on the biscuit github site.
-2. Create your secrets.yml file, storing the secrets with names that match the environment variables that SneaQL is looking for.  For example ```$ biscuit put -f secrets.yml SNEAQL_DB_PASSWORD PaZZwurd```
-3. Place your secrets.yml file in a http data store accessible by your instances.  Note that you can use an S3 bucket configured as a public website for this, as the secrets.yml file is meaningless without access to the KMS keys.
-4. When running your container... do not pass ENV vars for your secrets, instead pass the http path of your secrets file as ```SNEAQL_BISCUIT=http://secrets-files.example.com.s3-website-us-west-2.amazonaws.com/secrets.yml```
-
-If the SNEAQL_BISCUIT variable is set, the secrets.yml file will be pulled into the container at startup, at which point *all* of the secrets in the file will be decrypted and sourced as environment variables.
-
-You will need to enable your instances (or ECS task roles) the appropriate IAM permissions to use the decryption keys.
-
-While we tried to make this as simple as possible, you should always do your own legwork when creating a secure infrastructure. We find biscuit to be a great option in AWS because of it's serverless design.
+The SneaQL image has support for secrets management with biscuit built in. Please go to the SneaQL [wiki](https://github.com/full360/sneaql/wiki) for more information.
 
 ##### Redshift JDBC Driver
 

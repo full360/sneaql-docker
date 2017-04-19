@@ -1,9 +1,10 @@
 FROM jruby:9.1-jre-alpine
 
 ARG SNEAQL_GEM_VERSION
+ARG CONTAINER_VERSION
 
 LABEL build.publish.majorversion="9.1-jre-alpine"
-LABEL build.publish.minorversion="0.0.2"
+LABEL build.publish.minorversion="0.0.3"
 LABEL sneaql.gem.version=${SNEAQL_GEM_VERSION}
 
 MAINTAINER Jeremy Winters jeremy.winters@full360.com
