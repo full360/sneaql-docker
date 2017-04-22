@@ -1,12 +1,12 @@
 FROM jruby:9.1-jre-alpine
 
 
-LABEL build.publish.majorversion="13"
-LABEL build.publish.minorversion="0.0.13"
+LABEL build.publish.majorversion="1"
+LABEL build.publish.minorversion="0.1.0"
 LABEL build.publish.imagebase="jruby"
+LABEL build.publish.sneaqlgemversion="0.0.13"
 
 ARG SNEAQL_GEM_VERSION
-LABEL sneaql.gem.version=${SNEAQL_GEM_VERSION}
 
 MAINTAINER Jeremy Winters jeremy.winters@full360.com
 

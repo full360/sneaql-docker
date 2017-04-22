@@ -31,4 +31,6 @@ DOCKERMK := $(shell if [ ! -e docker-ci.mk ]; then \
                     wget -N -q https://raw.githubusercontent.com/full360/docker-ci/master/docker-ci.mk; fi)
 include docker-ci.mk
 
-$(foreach D, $(DOCKERFILES), $(eval $(call imagebase_from_dockerfile,$D).BUILDARGS+="SNEAQL_GEM_VERSION=$$(call get_label,$D,minorversion)"))
+
+$(foreach D, $(DOCKERFILES), $(eval $(call imagebase_from_dockerfile,$D).BUILDARGS+="SNEAQL_GEM_VERSION=$$(call get_label,$D,sneaqlgemversion)"))
+$(foreach D, $(DOCKERFILES), $(eval $(call imagebase_from_dockerfile,$D).TAGS+=gem-$$(call get_label,$D,sneaqlgemversion)))
