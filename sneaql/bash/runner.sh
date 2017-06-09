@@ -27,12 +27,14 @@ fi
 
 # configure env vars for redshift JDBC driver
 # note that in this version only redshift driver is supported
-
-if [ $SNEAQL_DATABASE == 'redshift' ]
+if [ -n "$SNEAQL_DATABASE" ]
 then
-  echo "by using this software you agree to Amazon Redshift JDBC Driver License Agreement https://s3.amazonaws.com/redshift-downloads/drivers/Amazon+Redshift+JDBC+Driver+License+Agreement.pdf"
-  export SNEAQL_JDBC_DRIVER_JAR=/jars/RedshiftJDBC4-1.1.6.1006.jar
-  export SNEAQL_JDBC_DRIVER_CLASS=com.amazon.redshift.jdbc4.Driver
+  if [ $SNEAQL_DATABASE == 'redshift' ]
+  then
+    echo "by using this software you agree to Amazon Redshift JDBC Driver License Agreement https://s3.amazonaws.com/redshift-downloads/drivers/Amazon+Redshift+JDBC+Driver+License+Agreement.pdf"
+    export SNEAQL_JDBC_DRIVER_JAR=/jars/RedshiftJDBC4-1.1.6.1006.jar
+    export SNEAQL_JDBC_DRIVER_CLASS=com.amazon.redshift.jdbc4.Driver
+  fi
 fi
 
 # https user/pass authenticated git repos are supported
