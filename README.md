@@ -46,3 +46,9 @@ By using this code repository or the resulting docker image, you are agreeing to
 ##### MIT License
 
 This software is released under the MIT license which has been included in the base of the repo.
+
+##### AWS CLI Apache 2.0 License
+
+The container created by this repository contains the AWS CLI, which is licensed under Apache 2.0. Please visit the following site for more information:
+
+[http://aws.amazon.com/apache2.0/](http://aws.amazon.com/apache2.0/)
