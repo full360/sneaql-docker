@@ -6,7 +6,7 @@ LABEL build.publish.minorversion="0.1.4"
 LABEL build.publish.imagebase="jruby"
 LABEL build.publish.sneaqlgemversion="0.0.21"
 
-ARG SNEAQL_GEM_VERSION
+ARG SNEAQL_GEM_VERSION=0.0.21
 
 MAINTAINER Jeremy Winters jeremy.winters@full360.com
 
