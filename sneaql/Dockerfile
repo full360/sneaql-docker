@@ -4,7 +4,7 @@ FROM jruby:9.1-jre-alpine
 LABEL build.publish.majorversion="1"
 LABEL build.publish.minorversion="0.1.4"
 LABEL build.publish.imagebase="jruby"
-LABEL build.publish.sneaqlgemversion="0.0.21"
+LABEL build.publish.sneaqlgemversion="0.0.26"
 
 ARG SNEAQL_GEM_VERSION
 
@@ -35,7 +35,7 @@ RUN \
     # Install AWS cli
     && pip install awscli  \
     && apk --purge -v del py-pip
-    
+
 #set time zone
 RUN mv /etc/localtime /etc/localtime.bak ; ln -s /usr/share/zoneinfo/UTC /etc/localtime
 
