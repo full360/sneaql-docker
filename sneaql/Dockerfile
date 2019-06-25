@@ -8,34 +8,42 @@ LABEL build.publish.sneaqlgemversion="0.0.27"
 
 ARG SNEAQL_GEM_VERSION=0.0.27
 ENV SNEAQL_GEM_VERSION=${SNEAQL_GEM_VERSION}
+ENV LANG C.UTF-8
+ENV JRUBY_OPTS="-J-Djruby.thread.pool.enabled=true -J-XX:+UnlockExperimentalVMOptions -J-XX:+UseCGroupMemoryLimitForHeap -J-XX:MaxRAMFraction=1 -J-Xms256M -J-Ddeployment.security.SSLv2Hello=false -J-Ddeployment.security.SSLv3=false -J-Ddeployment.security.TLSv1=false -J-Ddeployment.security.TLSv1.1=false -J-Ddeployment.security.TLSv1.2=true"
 
 MAINTAINER Jeremy Winters jeremy.winters@full360.com
 
-RUN apk add --no-cache \
+# Install required packages
+RUN set -ex \
+      && \
+      apk update && \
+      apk add --no-cache \
       bash \
-      git \
-      wget \
-      curl \
       ca-certificates \
+      curl \
+      git \
       gnupg \
       groff \
+      less \
+      ncurses \
       make \
       openssl \
       python \
       py-pip \
-      # Install biscuit
-      && curl  -s -L -o /tmp/biscuit.tar.gz \
-         https://github.com/dcoker/biscuit/releases/download/v0.1.3/biscuit-linux_386.tgz \
-      && tar zxf /tmp/biscuit.tar.gz -C /usr/local/bin \
-      && rm /tmp/biscuit.tar.gz
-#install aws cli
-RUN \
-    mkdir -p /aws \
-    # Install and upgrade Pip
-    && pip install --upgrade pip  \
-    # Install AWS cli
-    && pip install awscli  \
-    && apk --purge -v del py-pip
+      tar \
+      unzip
+
+# Install Biscuit
+RUN curl  -s -L -o /tmp/biscuit.tar.gz \
+       https://github.com/dcoker/biscuit/releases/download/v0.1.3/biscuit-linux_386.tgz \
+    && tar zxf /tmp/biscuit.tar.gz -C /usr/local/bin \
+    && rm /tmp/biscuit.tar.gz
+
+# Install and upgrade Pip * AWS CLI
+RUN mkdir -p /aws && \
+    pip install --upgrade pip  && \
+    pip install awscli==${AWSCLI_VER}  && \
+    apk --purge -v del py-pip
 
 
 USER root
