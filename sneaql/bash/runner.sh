@@ -35,16 +35,16 @@ fi
 #  # pull from remote location using method specified by url
 #  if [[ $SNEAQL_REPOSITORY_ARCHIVE =~ ^http.* ]]; then wget -O /tmp/repo.archive $SNEAQL_REPOSITORY_ARCHIVE; fi
 #  if [[ $SNEAQL_REPOSITORY_ARCHIVE =~ ^s3.* ]]; then aws s3 cp $SNEAQL_REPOSITORY_ARCHIVE /tmp/repo.archive; fi
-#  
+#
 #  mkdir /repo
-#  
+#
 #  # decompress zip file
 #  if [[ $SNEAQL_REPOSITORY_ARCHIVE =~ ^.*zip$ ]]
-#  then 
+#  then
 #    mv /tmp/repo.archive /tmp/repo.zip
 #    unzip /tmp/repo.zip -d /repo
 #  fi
-#  
+#
 #  # here is where support for other archive formats will go
 #fi
 
@@ -58,6 +58,17 @@ then
     export SNEAQL_JDBC_DRIVER_JAR=/jars/RedshiftJDBC4-1.1.6.1006.jar
     export SNEAQL_JDBC_DRIVER_CLASS=com.amazon.redshift.jdbc4.Driver
   fi
+fi
+
+if [ -n "$SNEAQL_CODECOMMIT_REPO" ]
+then
+  echo "setting up codecommit credential-helper"
+  git config --global credential.helper '!aws codecommit credential-helper $@'
+  git config --global credential.UseHttpPath true
+  echo "pulling git repo $SNEAQL_CODECOMMIT_REPO branch $SNEAQL_GIT_REPO_BRANCH"
+
+  cd /
+  git clone $SNEAQL_CODECOMMIT_REPO --branch $SNEAQL_GIT_REPO_BRANCH --single-branch --quiet /repo
 fi
 
 # https user/pass authenticated git repos are supported
