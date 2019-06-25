@@ -6,7 +6,8 @@ LABEL build.publish.minorversion="0.1.4"
 LABEL build.publish.imagebase="jruby"
 LABEL build.publish.sneaqlgemversion="0.0.27"
 
-ARG SNEAQL_GEM_VERSION
+ARG SNEAQL_GEM_VERSION=0.0.25
+ENV SNEAQL_GEM_VERSION=${SNEAQL_GEM_VERSION}
 
 MAINTAINER Jeremy Winters jeremy.winters@full360.com
 
@@ -36,8 +37,6 @@ RUN \
     && pip install awscli  \
     && apk --purge -v del py-pip
 
-#set time zone
-RUN mv /etc/localtime /etc/localtime.bak ; ln -s /usr/share/zoneinfo/UTC /etc/localtime
 
 USER root
 
