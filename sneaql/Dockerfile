@@ -11,7 +11,7 @@ ENV SNEAQL_GEM_VERSION=${SNEAQL_GEM_VERSION}
 ENV LANG C.UTF-8
 ENV JRUBY_OPTS="-J-Djruby.thread.pool.enabled=true -J-XX:+UnlockExperimentalVMOptions -J-XX:+UseCGroupMemoryLimitForHeap -J-XX:MaxRAMFraction=1 -J-Xms256M -J-Ddeployment.security.SSLv2Hello=false -J-Ddeployment.security.SSLv3=false -J-Ddeployment.security.TLSv1=false -J-Ddeployment.security.TLSv1.1=false -J-Ddeployment.security.TLSv1.2=true"
 
-MAINTAINER Jeremy Winters jeremy.winters@full360.com
+MAINTAINER Rohit Amarnath rohit.amarnath@full360.com
 
 # Install required packages
 RUN set -ex \
@@ -42,7 +42,7 @@ RUN curl  -s -L -o /tmp/biscuit.tar.gz \
 # Install and upgrade Pip * AWS CLI
 RUN mkdir -p /aws && \
     pip install --upgrade pip  && \
-    pip install awscli==${AWSCLI_VER}  && \
+    pip install awscli  && \
     apk --purge -v del py-pip
 
 
