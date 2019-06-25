@@ -4,7 +4,7 @@ FROM jruby:9.1-jre-alpine
 LABEL build.publish.majorversion="1"
 LABEL build.publish.minorversion="0.1.4"
 LABEL build.publish.imagebase="jruby"
-LABEL build.publish.sneaqlgemversion="0.0.26"
+LABEL build.publish.sneaqlgemversion="0.0.27"
 
 ARG SNEAQL_GEM_VERSION
 
